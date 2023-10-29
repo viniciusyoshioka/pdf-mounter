@@ -1,0 +1,8 @@
+{
+    "name": "auto-pdf",
+    "version": "0.0.1",
+    "description": "A tool that creates a PDF with all the images inside a folder, adding 2 images per page.",
+    "license": "MIT",
+    "private": true,
+    "main": "./src/index.ts"
+}
