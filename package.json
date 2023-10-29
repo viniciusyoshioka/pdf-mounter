@@ -6,6 +6,7 @@
     "private": true,
     "main": "./src/index.ts",
     "dependencies": {
+        "exif-reader": "^2.0.0",
         "pdfkit": "^0.13.0"
     },
     "devDependencies": {
