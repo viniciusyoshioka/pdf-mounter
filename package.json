@@ -5,6 +5,9 @@
     "license": "MIT",
     "private": true,
     "main": "./src/index.ts",
+    "dependencies": {
+        "pdfkit": "^0.13.0"
+    },
     "devDependencies": {
         "@elementium/eslint-config": "file:../elementium/packages/eslint-config",
         "@elementium/eslint-config-typescript": "file:../elementium/packages/eslint-config-typescript",
