@@ -4,5 +4,14 @@
     "description": "A tool that creates a PDF with all the images inside a folder, adding 2 images per page.",
     "license": "MIT",
     "private": true,
-    "main": "./src/index.ts"
+    "main": "./src/index.ts",
+    "devDependencies": {
+        "@elementium/eslint-config": "file:../elementium/packages/eslint-config",
+        "@elementium/eslint-config-typescript": "file:../elementium/packages/eslint-config-typescript",
+        "@elementium/tsconfig": "file:../elementium/packages/tsconfig",
+        "@typescript-eslint/eslint-plugin": "^6.9.0",
+        "@typescript-eslint/parser": "^6.9.0",
+        "eslint": "^8.52.0",
+        "typescript": "^5.2.2"
+    }
 }
