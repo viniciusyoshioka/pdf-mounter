@@ -14,7 +14,8 @@
     },
     "dependencies": {
         "exif-reader": "^2.0.0",
-        "pdfkit": "^0.13.0"
+        "pdfkit": "^0.13.0",
+        "sharp": "^0.32.6"
     },
     "devDependencies": {
         "@elementium/eslint-config": "file:../elementium/packages/eslint-config",
