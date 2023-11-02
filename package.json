@@ -8,6 +8,7 @@
     "main": "./src/index.ts",
     "module": "./dist/index.js",
     "scripts": {
+        "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
         "typecheck": "tsc --noEmit",
         "test": "jest",
         "build": "tsc",
