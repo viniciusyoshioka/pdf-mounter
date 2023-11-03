@@ -4,7 +4,7 @@
     "description": "A tool that creates a PDF with all the images inside a folder, adding 2 images per page.",
     "license": "MIT",
     "private": true,
-    "type": "module",
+    "type": "commonjs",
     "main": "./src/index.ts",
     "module": "./dist/index.js",
     "scripts": {

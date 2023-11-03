@@ -3,7 +3,7 @@
     "compilerOptions": {
         "rootDir": "src",
         "outDir": "dist",
-        "module": "ES6",
+        "module": "CommonJS",
     },
     "include": [
         "src/**/*",
