@@ -68,8 +68,8 @@ export class ImageProvider {
         const height = imageMetadata.height as number
         const orientation = imageMetadata.orientation ?? 0
 
-        if (orientation >= 5) return { width, height }
-        return { width: height, height: width }
+        if (orientation >= 5) return { width: height, height: width }
+        return { width, height }
     }
 
 
