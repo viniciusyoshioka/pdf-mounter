@@ -74,7 +74,7 @@ describe("PostScript", () => {
             expect(PostScript.getPageSize(pageType as PageType)).toBeDefined()
         })
         unsupportedSeriesA.forEach(pageType => {
-            expect(PostScript.getPageSize(pageType as PageType)).toBeUndefined()
+            expect(() => PostScript.getPageSize(pageType as PageType)).toThrow()
         })
     })
 
@@ -86,7 +86,7 @@ describe("PostScript", () => {
             expect(PostScript.getPageSize(pageType as PageType)).toBeDefined()
         })
         unsupportedSeriesB.forEach(pageType => {
-            expect(PostScript.getPageSize(pageType as PageType)).toBeUndefined()
+            expect(() => PostScript.getPageSize(pageType as PageType)).toThrow()
         })
     })
 
@@ -98,7 +98,7 @@ describe("PostScript", () => {
             expect(PostScript.getPageSize(pageType as PageType)).toBeDefined()
         })
         unsupportedSeriesC.forEach(pageType => {
-            expect(PostScript.getPageSize(pageType as PageType)).toBeUndefined()
+            expect(() => PostScript.getPageSize(pageType as PageType)).toThrow()
         })
     })
 
@@ -110,7 +110,7 @@ describe("PostScript", () => {
             expect(PostScript.getPageSize(pageType as PageType)).toBeDefined()
         })
         unsupportedSeriesRA.forEach(pageType => {
-            expect(PostScript.getPageSize(pageType as PageType)).toBeUndefined()
+            expect(() => PostScript.getPageSize(pageType as PageType)).toThrow()
         })
     })
 
@@ -122,7 +122,7 @@ describe("PostScript", () => {
             expect(PostScript.getPageSize(pageType as PageType)).toBeDefined()
         })
         unsupportedSeriesSRA.forEach(pageType => {
-            expect(PostScript.getPageSize(pageType as PageType)).toBeUndefined()
+            expect(() => PostScript.getPageSize(pageType as PageType)).toThrow()
         })
     })
 
@@ -134,7 +134,7 @@ describe("PostScript", () => {
             expect(PostScript.getPageSize(pageType as PageType)).toBeDefined()
         })
         unsupportedUsaSeries.forEach(pageType => {
-            expect(PostScript.getPageSize(pageType as PageType)).toBeUndefined()
+            expect(() => PostScript.getPageSize(pageType as PageType)).toThrow()
         })
     })
 
@@ -146,7 +146,7 @@ describe("PostScript", () => {
             expect(PostScript.getPageSize(pageType as PageType)).toBeDefined()
         })
         unsupportedOtherSeries.forEach(pageType => {
-            expect(PostScript.getPageSize(pageType as PageType)).toBeUndefined()
+            expect(() => PostScript.getPageSize(pageType as PageType)).toThrow()
         })
     })
 })

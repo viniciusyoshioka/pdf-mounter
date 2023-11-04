@@ -228,7 +228,10 @@ export class PostScript {
     }
 
 
-    static getPageSize(pageSize: PageType): PostScriptSize {
-        return PostScript.SUPPORTED_PAGES_SIZE[pageSize]
+    static getPageSize(pageType: PageType): PostScriptSize {
+        if (!(pageType in PostScript.SUPPORTED_PAGES_SIZE)) {
+            throw new Error(`Unsupported page type: ${pageType}`)
+        }
+        return PostScript.SUPPORTED_PAGES_SIZE[pageType]
     }
 }
