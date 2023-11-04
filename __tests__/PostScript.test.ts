@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals"
 
-import { PageType, PostScript } from "../src/PostScript"
+import { PageLayout, PageType, PostScript } from "../src/PostScript"
 
 
 describe("PostScript", () => {
@@ -66,7 +66,7 @@ describe("PostScript", () => {
         expect(PostScript.SUPPORTED_PAGES_SIZE).toEqual(EXPECTED_SUPPORTED_PAGES_SIZE)
     })
 
-    test("Get A series pages size", () => {
+    describe("Test page series A size", () => {
         const supportedSeriesA = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10"]
         const unsupportedSeriesA = ["A11", "A12", "A13", "A14", "A15"]
 
@@ -78,7 +78,7 @@ describe("PostScript", () => {
         })
     })
 
-    describe("Get B series pages size", () => {
+    describe("Test page series B size", () => {
         const supportedSeriesB = ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10"]
         const unsupportedSeriesB = ["B11", "B12", "B13", "B14", "B15"]
 
@@ -90,7 +90,7 @@ describe("PostScript", () => {
         })
     })
 
-    describe("Get C series pages size", () => {
+    describe("Test page series C size", () => {
         const supportedSeriesC = ["C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10"]
         const unsupportedSeriesC = ["C11", "C12", "C13", "C14", "C15"]
 
@@ -102,7 +102,7 @@ describe("PostScript", () => {
         })
     })
 
-    describe("Get RA series pages size", () => {
+    describe("Test page series RA size", () => {
         const supportedSeriesRA = ["RA0", "RA1", "RA2", "RA3", "RA4"]
         const unsupportedSeriesRA = ["RA5", "RA6", "RA7", "RA8", "RA9", "RA10"]
 
@@ -114,7 +114,7 @@ describe("PostScript", () => {
         })
     })
 
-    describe("Get SRA series pages size", () => {
+    describe("Test page series SRA size", () => {
         const supportedSeriesSRA = ["SRA0", "SRA1", "SRA2", "SRA3", "SRA4"]
         const unsupportedSeriesSRA = ["SRA5", "SRA6", "SRA7", "SRA8", "SRA9", "SRA10"]
 
@@ -126,7 +126,7 @@ describe("PostScript", () => {
         })
     })
 
-    describe("Get pages size used in USA", () => {
+    describe("Test page series size used in USA", () => {
         const supportedUsaSeries = ["EXECUTIVE", "LEGAL", "LETTER", "TABLOID"]
         const unsupportedUsaSeries = ["PAPER"]
 
@@ -138,7 +138,7 @@ describe("PostScript", () => {
         })
     })
 
-    describe("Get other series pages size", () => {
+    describe("Test other page series size", () => {
         const supportedOtherSeries = ["4A0", "2A0", "FOLIO"]
         const unsupportedOtherSeries = ["PAPER"]
 
@@ -148,5 +148,28 @@ describe("PostScript", () => {
         unsupportedOtherSeries.forEach(pageType => {
             expect(() => PostScript.getPageSize(pageType as PageType)).toThrow()
         })
+    })
+
+    describe("Get a page size and inverts it to match the layout", () => {
+        const supportedPageTypes = Object.keys(PostScript.SUPPORTED_PAGES_SIZE) as PageType[]
+        const pageLayouts: PageLayout[] = ["portrait", "landscape"]
+
+        for (let i = 0; i < supportedPageTypes.length; i++) {
+            const pageType = supportedPageTypes[i]
+
+            for (let j = 0; j < pageLayouts.length; j++) {
+                const pageLayout = pageLayouts[j]
+
+                const pageSize = PostScript.getPageSize(pageType)
+                expect(pageSize.width).toBeLessThanOrEqual(pageSize.height)
+
+                const invertedPageSize = PostScript.getPageSizeBasedOnLayout(pageType, pageLayout)
+                if (pageLayout === "portrait") {
+                    expect(invertedPageSize.width).toBeLessThanOrEqual(invertedPageSize.height)
+                } else {
+                    expect(invertedPageSize.width).toBeGreaterThanOrEqual(invertedPageSize.height)
+                }
+            }
+        }
     })
 })

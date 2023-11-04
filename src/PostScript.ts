@@ -9,6 +9,9 @@ export type PageTypeOther = "4A0" | "2A0" | "FOLIO"
 export type PageType = PageTypeA | PageTypeB | PageTypeC | PageTypeRA | PageTypeSRA | PageTypeUSA | PageTypeOther
 
 
+export type PageLayout = "portrait" | "landscape"
+
+
 export type PostScriptSize = {
     width: number
     height: number
@@ -233,5 +236,18 @@ export class PostScript {
             throw new Error(`Unsupported page type: ${pageType}`)
         }
         return PostScript.SUPPORTED_PAGES_SIZE[pageType]
+    }
+
+    static getPageSizeBasedOnLayout(pageType: PageType, layout: PageLayout): PostScriptSize {
+        const size = PostScript.getPageSize(pageType)
+        const newSize = { ...size }
+
+        const shouldInvertPortrait = layout === "portrait" && size.width > size.height
+        const shouldInvertLandscape = layout === "landscape" && size.height > size.width
+        if (shouldInvertPortrait || shouldInvertLandscape) {
+            newSize.width = size.height
+            newSize.height = size.width
+        }
+        return newSize
     }
 }
