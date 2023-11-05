@@ -110,4 +110,9 @@ export class ImageProvider {
         }
         throw new Error("No more images read to return")
     }
+
+
+    isEmpty(): boolean {
+        return !this.hasNext()
+    }
 }

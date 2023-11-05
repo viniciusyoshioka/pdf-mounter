@@ -13,6 +13,11 @@ describe("ImageProvider", () => {
     })
 
 
+    test("Check if image provider is not empty", () => {
+        expect(imageProvider.isEmpty()).toBeFalsy()
+    })
+
+
     test("Reading all portrait images", () => {
         function readAllPortraitImages() {
             while (imageProvider.hasNextPortrait()) {
@@ -63,5 +68,10 @@ describe("ImageProvider", () => {
     test("Reading image not having a next image", () => {
         expect(imageProvider.hasNext()).toBeFalsy()
         expect(() => imageProvider.next()).toThrow("No more images read to return")
+    })
+
+
+    test("Check if image provider is empty", () => {
+        expect(imageProvider.isEmpty()).toBeTruthy()
     })
 })
