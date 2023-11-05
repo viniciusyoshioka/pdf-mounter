@@ -9,7 +9,7 @@ export type PdfMounterArguments = {
     pdf: PDFKit.PDFDocument
     imageProvider: ImageProvider
     imagesPath: string
-    outputStream: fs.WriteStream
+    outputPath: string
     amountOfImagesPerPage?: number
 }
 
@@ -28,7 +28,7 @@ export class PdfMounter {
         this.pdf = args.pdf
         this.imageProvider = args.imageProvider
         this.imagesPath = args.imagesPath
-        this.outputStream = args.outputStream
+        this.outputStream = fs.createWriteStream(args.outputPath)
         if (args.amountOfImagesPerPage) {
             this.amountOfImagesPerPage = args.amountOfImagesPerPage
         }

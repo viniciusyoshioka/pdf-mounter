@@ -1,5 +1,4 @@
 import { describe, test } from "@jest/globals"
-import fs from "node:fs"
 import PDFDocument from "pdfkit"
 
 import { ImageProvider } from "../src/ImageProvider"
@@ -14,7 +13,7 @@ describe("PdfMounter", () => {
     let pdfMounter: PdfMounter
 
     const imagesPath = "./assets/images"
-    const outputStream = fs.createWriteStream("./assets/pdf/PdfMounter_test_output.pdf")
+    const outputPath = "./assets/pdf/PdfMounter_test_output.pdf"
     const amountOfImagesPerPage = 4
 
 
@@ -28,7 +27,7 @@ describe("PdfMounter", () => {
             pdf,
             imageProvider,
             imagesPath,
-            outputStream,
+            outputPath,
             amountOfImagesPerPage,
         })
     })
