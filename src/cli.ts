@@ -51,7 +51,7 @@ export interface CliConfig {
 export class CLI {
 
 
-    private NAME = "auto-pdf"
+    private NAME = "pdf-mounter"
     private VERSION = "0.0.1"
     private args: ParsedArgs
 
