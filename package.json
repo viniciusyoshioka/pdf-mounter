@@ -16,7 +16,6 @@
     },
     "dependencies": {
         "arg": "^5.0.2",
-        "exif-reader": "^2.0.0",
         "pdfkit": "^0.13.0",
         "sharp": "^0.32.6"
     },

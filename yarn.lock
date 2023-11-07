@@ -1532,11 +1532,6 @@ execa@^5.0.0:
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
 
-exif-reader@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/exif-reader/-/exif-reader-2.0.0.tgz#35da9d0ceaf28a409b821e6878edbce363d40ce9"
-  integrity sha512-/c4JW2Kb4/MdmUJyMKTXhNG524q0pCA1DDCEb2aawd9j2i2+bc+mKGKKyO4z2glRTKW93Ks4BWCgmKeEyKiUeA==
-
 exit@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/exit/-/exit-0.1.2.tgz#0632638f8d877cc82107d30a0fff1a17cba1cd0c"
