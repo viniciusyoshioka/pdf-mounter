@@ -1,3 +1,4 @@
+import { UnitConversor } from "./UnitConversor"
 
 
 export type Size = {
@@ -37,14 +38,13 @@ export class ImageResizer {
 
 
     redimensionLandscapeImages(): ResizedImage[] {
+        const paddingInPs = UnitConversor.cmToPs(0.5)
+
         const posX = 0
         let posY = 0
 
-        const spaceLeftInPageX = this.page.width
-        let spaceLeftInPageY = this.page.height
-
         const maxImageWidth = this.page.width
-        const maxImageHeight = this.page.height / this.amountOfImages
+        const maxImageHeight = (this.page.height / this.amountOfImages) - paddingInPs
 
         for (let i = 0; i < this.amountOfImages; i++) {
             const image = this.original[i]
@@ -56,10 +56,6 @@ export class ImageResizer {
                 newImageHeight = maxImageHeight
                 newImageWidth = newImageHeight * imageRatio
             }
-            if (newImageHeight > spaceLeftInPageY) {
-                newImageHeight = spaceLeftInPageY
-                newImageWidth = newImageHeight * imageRatio
-            }
 
             this.resized.push({
                 x: posX,
@@ -68,22 +64,20 @@ export class ImageResizer {
                 height: newImageHeight,
             })
 
-            posY += newImageHeight
-            spaceLeftInPageY -= newImageHeight
+            posY += newImageHeight + paddingInPs
         }
 
         return this.resized
     }
 
     redimensionPortraitImages(): ResizedImage[] {
+        const paddingInPs = UnitConversor.cmToPs(0.25)
+
         let posX = 0
         const posY = 0
 
-        let spaceLeftInPageX = this.page.width
-        const spaceLeftInPageY = this.page.height
-
         const maxImageHeight = this.page.height
-        const maxImageWidth = this.page.width / this.amountOfImages
+        const maxImageWidth = (this.page.width / this.amountOfImages) - paddingInPs
 
         for (let i = 0; i < this.amountOfImages; i++) {
             const image = this.original[i]
@@ -95,10 +89,6 @@ export class ImageResizer {
                 newImageWidth = maxImageWidth
                 newImageHeight = newImageWidth / imageRatio
             }
-            if (newImageWidth > spaceLeftInPageX) {
-                newImageWidth = spaceLeftInPageX
-                newImageHeight = newImageWidth / imageRatio
-            }
 
             this.resized.push({
                 x: posX,
@@ -107,8 +97,7 @@ export class ImageResizer {
                 height: newImageHeight,
             })
 
-            posX += newImageWidth
-            spaceLeftInPageX -= newImageWidth
+            posX += newImageWidth + paddingInPs
         }
 
         return this.resized
