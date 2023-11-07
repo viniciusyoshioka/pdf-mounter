@@ -1,7 +1,7 @@
 {
     "name": "pdf-mounter",
     "version": "0.0.1",
-    "description": "A tool that creates a PDF with all the images inside a folder, adding an amount of images per page.",
+    "description": "A tool that automates the creation of PDF files, reading all the images inside a folder and adding an amount of images per page.",
     "license": "MIT",
     "private": true,
     "type": "commonjs",
