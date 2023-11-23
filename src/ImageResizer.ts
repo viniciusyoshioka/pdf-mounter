@@ -42,13 +42,13 @@ export class ImageResizer {
 
 
     redimensionLandscapeImages(): ResizedImage[] {
-        const paddingInPs = UnitConversor.cmToPs(0.25)
+        const gapInPs = UnitConversor.cmToPs(0.25)
 
         const pageRows = this.mode === "linear" ? this.amountOfImages : this.rows
         const pageColumns = this.mode === "linear" ? 1 : this.columns
 
-        const maxImageWidth = (this.page.width / pageColumns) - paddingInPs
-        const maxImageHeight = (this.page.height / pageRows) - paddingInPs
+        const maxImageWidth = (this.page.width / pageColumns) - gapInPs
+        const maxImageHeight = (this.page.height / pageRows) - gapInPs
 
         let posX = 0
         let posY = 0
@@ -80,25 +80,25 @@ export class ImageResizer {
                     height: newImageHeight,
                 })
 
-                posX += newImageWidth + paddingInPs
+                posX += newImageWidth + gapInPs
                 index += 1
             }
 
             posX = 0
-            posY += newImageHeight + paddingInPs
+            posY += newImageHeight + gapInPs
         }
 
         return this.resized
     }
 
     redimensionPortraitImages(): ResizedImage[] {
-        const paddingInPs = UnitConversor.cmToPs(0.25)
+        const gapInPs = UnitConversor.cmToPs(0.25)
 
         const pageRows = this.mode === "linear" ? 1 : this.rows
         const pageColumns = this.mode === "linear" ? this.amountOfImages : this.columns
 
-        const maxImageWidth = (this.page.width / pageColumns) - paddingInPs
-        const maxImageHeight = (this.page.height / pageRows) - paddingInPs
+        const maxImageWidth = (this.page.width / pageColumns) - gapInPs
+        const maxImageHeight = (this.page.height / pageRows) - gapInPs
 
         let posX = 0
         let posY = 0
@@ -130,12 +130,12 @@ export class ImageResizer {
                     height: newImageHeight,
                 })
 
-                posX += newImageWidth + paddingInPs
+                posX += newImageWidth + gapInPs
                 index += 1
             }
 
             posX = 0
-            posY += newImageHeight + paddingInPs
+            posY += newImageHeight + gapInPs
         }
 
         return this.resized
