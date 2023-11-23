@@ -42,7 +42,7 @@ export class ImageResizer {
 
 
     redimensionLandscapeImages(): ResizedImage[] {
-        const paddingInPs = UnitConversor.cmToPs(0.5)
+        const paddingInPs = UnitConversor.cmToPs(0.25)
 
         const pageRows = this.mode === "linear" ? this.amountOfImages : this.rows
         const pageColumns = this.mode === "linear" ? 1 : this.columns
