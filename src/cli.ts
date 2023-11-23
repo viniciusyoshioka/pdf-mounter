@@ -10,6 +10,9 @@ interface ConfigArgs extends Spec {
     "--output-name": Handler
     "--output-path": Handler
     "--amount-of-images-per-page": Handler
+    "--mode": Handler
+    "--rows": Handler
+    "--columns": Handler
 }
 
 
@@ -21,6 +24,9 @@ export interface ParsedArgs {
     "--output-name": string
     "--output-path": string
     "--amount-of-images-per-page": number
+    "--mode": "linear" | "matrix"
+    "--rows": number
+    "--columns": number
 }
 
 
@@ -31,20 +37,19 @@ const argConfig: ConfigArgs = {
     "--output-name": String,
     "--output-path": String,
     "--amount-of-images-per-page": Number,
+    "--mode": String,
+    "--rows": Number,
+    "--columns": Number,
 
     "-h": "--help",
     "-v": "--version",
     "-i": "--images",
     "-o": "--output-name",
     "-p": "--output-path",
-    "-c": "--amount-of-images-per-page",
-}
-
-
-export interface CliConfig {
-    argv?: string[]
-    exitOnHelp?: boolean
-    exitOnVersion?: boolean
+    "-q": "--amount-of-images-per-page",
+    "-m": "--mode",
+    "-r": "--rows",
+    "-c": "--columns"
 }
 
 
@@ -84,7 +89,10 @@ export class CLI {
         console.log("    -i, --images <path>             Path to a folder containing the images. Default: current directory")
         console.log("    -o, --output-name <name>        Output file name of generated PDF. Default: generated_file.pdf")
         console.log("    -p, --output-path <path>        Output path of generated PDF file. Default: current directory")
-        console.log("    -c, --amount-of-images-per-page How many images will be placed on each page. Default: 2")
+        console.log("    -q, --amount-of-images-per-page How many images will be placed on each page. Default: 2")
+        console.log("    -m, --mode                      How the images will be arranged on the page. Possible values are 'linear' and 'matrix'. If set to matrix, --rows and --columns must be set too. Default: linear")
+        console.log("    -r, --rows                      How many rows will be present on the page. Only has effect if --mode is set to matrix. Default: 1 or --amount-of-images-per-page, depending on page's orientation")
+        console.log("    -c, --columns                   How many columns will be present on the page. Only has effect if --mode is set to matrix. Default: 1 or --amount-of-images-per-page, depending on page's orientation")
         process.exit(0)
     }
 
@@ -99,6 +107,9 @@ export class CLI {
         this.setDefaultValueToOutputName()
         this.setDefaultValueToOutputPath()
         this.setDefaultValueToAmountOfImagesPerPage()
+        this.setDefaultValueToMode()
+        this.setDefaultValueToRows()
+        this.setDefaultValueToColumns()
     }
 
     private setDefaultValueToImages() {
@@ -139,6 +150,33 @@ export class CLI {
         }
         if (this.args["--amount-of-images-per-page"] < 1) {
             throw new Error("Option --amount-of-images-per-page must be a number greater than 0")
+        }
+    }
+
+    private setDefaultValueToMode() {
+        if (this.args["--mode"] === undefined) {
+            this.args["--mode"] = "linear"
+        }
+        if (this.args["--mode"] !== "linear" && this.args["--mode"] !== "matrix") {
+            throw new Error("Option --mode must be either 'linear' or 'matrix'")
+        }
+    }
+
+    private setDefaultValueToRows() {
+        if (this.args["--rows"] === undefined) {
+            this.args["--rows"] = 1
+        }
+        if (this.args["--rows"] < 1) {
+            throw new Error("Option --rows must be a number greater than 0")
+        }
+    }
+
+    private setDefaultValueToColumns() {
+        if (this.args["--columns"] === undefined) {
+            this.args["--columns"] = 1
+        }
+        if (this.args["--columns"] < 1) {
+            throw new Error("Option --columns must be a number greater than 0")
         }
     }
 }
