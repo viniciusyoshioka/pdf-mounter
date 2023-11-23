@@ -1,16 +1,15 @@
 import fs from "node:fs"
+import path from "node:path"
 
 import { Image, ImageProvider } from "./ImageProvider"
 import { ImageResizer } from "./ImageResizer"
 import { PageLayout, PageType, PostScript } from "./PostScript"
+import { args } from "./cli"
 
 
 export type PdfMounterArguments = {
     pdf: PDFKit.PDFDocument
     imageProvider: ImageProvider
-    imagesPath: string
-    outputPath: string
-    amountOfImagesPerPage?: number
 }
 
 
@@ -19,19 +18,15 @@ export class PdfMounter {
 
     private pdf: PDFKit.PDFDocument
     private imageProvider: ImageProvider
-    private imagesPath: string
-    private outputStream: fs.WriteStream
-    private amountOfImagesPerPage = 1
+    private imagesPath = args["--images"]
+    private outputPath = path.join(args["--output-path"], args["--output-name"])
+    private outputStream = fs.createWriteStream(this.outputPath)
+    private amountOfImagesPerPage = args["--amount-of-images-per-page"]
 
 
     constructor(args: PdfMounterArguments) {
         this.pdf = args.pdf
         this.imageProvider = args.imageProvider
-        this.imagesPath = args.imagesPath
-        this.outputStream = fs.createWriteStream(args.outputPath)
-        if (args.amountOfImagesPerPage) {
-            this.amountOfImagesPerPage = args.amountOfImagesPerPage
-        }
     }
 
 
@@ -50,7 +45,11 @@ export class PdfMounter {
 
     private addLandscapeImages() {
         while (this.imageProvider.hasNextLandscape()) {
-            this.pdf.addPage({ ...this.pdf.options, layout: "portrait" })
+            if (args["--mode"] === "linear") {
+                this.pdf.addPage({ ...this.pdf.options, layout: "portrait" })
+            } else {
+                this.pdf.addPage({ ...this.pdf.options, layout: "landscape" })
+            }
 
             const imagesToAddToPage: Image[] = []
             for (let i = 0; i < this.amountOfImagesPerPage; i++) {
@@ -87,7 +86,11 @@ export class PdfMounter {
 
     private addPortraitImages() {
         while (this.imageProvider.hasNextPortrait()) {
-            this.pdf.addPage({ ...this.pdf.options, layout: "landscape" })
+            if (args["--mode"] === "linear") {
+                this.pdf.addPage({ ...this.pdf.options, layout: "portrait" })
+            } else {
+                this.pdf.addPage({ ...this.pdf.options, layout: "landscape" })
+            }
 
             const imagesToAddToPage: Image[] = []
             for (let i = 0; i < this.amountOfImagesPerPage; i++) {

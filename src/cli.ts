@@ -16,6 +16,8 @@ interface ConfigArgs extends Spec {
 }
 
 
+export type ArrangementMode = "linear" | "matrix"
+
 export interface ParsedArgs {
     "_": string[]
     "--help": boolean
@@ -24,7 +26,7 @@ export interface ParsedArgs {
     "--output-name": string
     "--output-path": string
     "--amount-of-images-per-page": number
-    "--mode": "linear" | "matrix"
+    "--mode": ArrangementMode
     "--rows": number
     "--columns": number
 }
