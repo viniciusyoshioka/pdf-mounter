@@ -23,13 +23,14 @@ describe("PdfMounter", () => {
     })
 
     test("Instantiate PdfMounter", () => {
-        pdfMounter = new PdfMounter({
-            pdf,
-            imageProvider,
-            imagesPath,
-            outputPath,
-            amountOfImagesPerPage,
-        })
+        const previousArgv = [...process.argv]
+        process.argv.push(
+            "-i", imagesPath, "-o", outputPath, "-q", amountOfImagesPerPage.toString()
+        )
+
+        pdfMounter = new PdfMounter({ pdf, imageProvider })
+
+        process.argv = previousArgv
     })
 
     test("Mount PDF file", async () => {
