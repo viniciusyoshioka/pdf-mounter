@@ -42,13 +42,13 @@ export class ImageResizer {
 
 
     redimensionLandscapeImages(): ResizedImage[] {
-        const gapInPs = UnitConversor.cmToPs(0.25)
+        const gapInPs = Math.round(UnitConversor.cmToPs(0.25))
 
         const pageRows = this.mode === "linear" ? this.amountOfImages : this.rows
         const pageColumns = this.mode === "linear" ? 1 : this.columns
 
-        const maxImageWidth = (this.page.width / pageColumns) - gapInPs
-        const maxImageHeight = (this.page.height / pageRows) - gapInPs
+        const maxImageWidth = (this.page.width - ((pageColumns - 1) * gapInPs)) / pageColumns
+        const maxImageHeight = (this.page.height - ((pageRows - 1) * gapInPs)) / pageRows
 
         let posX = 0
         let posY = 0
@@ -56,14 +56,17 @@ export class ImageResizer {
         let newImageWidth = 0
         let newImageHeight = 0
 
-        let index = 0
+        const biggestImageWidth = 0
+        let biggestImageHeight = 0
+
+        let processedImageIndex = 0
         for (let i = 0; i < pageRows; i++) {
             for (let j = 0; j < pageColumns; j++) {
-                if (index >= this.amountOfImages) {
+                if (processedImageIndex >= this.amountOfImages) {
                     break
                 }
 
-                const image = this.original[index]
+                const image = this.original[processedImageIndex]
                 const imageRatio = image.width / image.height
 
                 newImageWidth = maxImageWidth
@@ -81,24 +84,27 @@ export class ImageResizer {
                 })
 
                 posX += newImageWidth + gapInPs
-                index += 1
+                if (newImageHeight > biggestImageHeight) {
+                    biggestImageHeight = newImageHeight
+                }
+                processedImageIndex += 1
             }
 
             posX = 0
-            posY += newImageHeight + gapInPs
+            posY += biggestImageHeight + gapInPs
         }
 
         return this.resized
     }
 
     redimensionPortraitImages(): ResizedImage[] {
-        const gapInPs = UnitConversor.cmToPs(0.25)
+        const gapInPs = Math.round(UnitConversor.cmToPs(0.25))
 
         const pageRows = this.mode === "linear" ? 1 : this.rows
         const pageColumns = this.mode === "linear" ? this.amountOfImages : this.columns
 
-        const maxImageWidth = (this.page.width / pageColumns) - gapInPs
-        const maxImageHeight = (this.page.height / pageRows) - gapInPs
+        const maxImageWidth = (this.page.width - ((pageColumns - 1) * gapInPs)) / pageColumns
+        const maxImageHeight = (this.page.height - ((pageRows - 1) * gapInPs)) / pageRows
 
         let posX = 0
         let posY = 0
@@ -106,14 +112,17 @@ export class ImageResizer {
         let newImageHeight = 0
         let newImageWidth = 0
 
-        let index = 0
+        const biggestImageWidth = 0
+        let biggestImageHeight = 0
+
+        let processedImageIndex = 0
         for (let i = 0; i < pageRows; i++) {
             for (let j = 0; j < pageColumns; j++) {
-                if (index >= this.amountOfImages) {
+                if (processedImageIndex >= this.amountOfImages) {
                     break
                 }
 
-                const image = this.original[i]
+                const image = this.original[processedImageIndex]
                 const imageRatio = image.width / image.height
 
                 newImageHeight = maxImageHeight
@@ -131,11 +140,14 @@ export class ImageResizer {
                 })
 
                 posX += newImageWidth + gapInPs
-                index += 1
+                if (newImageHeight > biggestImageHeight) {
+                    biggestImageHeight = newImageHeight
+                }
+                processedImageIndex += 1
             }
 
             posX = 0
-            posY += newImageHeight + gapInPs
+            posY += biggestImageHeight + gapInPs
         }
 
         return this.resized
