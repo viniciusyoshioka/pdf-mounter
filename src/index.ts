@@ -1,3 +1,12 @@
+const start = performance.now()
+
+function showElapsedTime() {
+    const end = performance.now()
+    const time = (end - start) / 1000
+    console.log(`Time elapsed: ${time.toFixed(2)}s`)
+}
+
+
 import path from "node:path"
 import PDFDocument from "pdfkit"
 
@@ -14,13 +23,11 @@ const pdfMounter = new PdfMounter({
 
 pdfMounter.start()
     .then(() => {
-        const outputFolderPath = args["--output-path"]
-        const outputFileName = args["--output-name"]
-        const outputPath = path.join(outputFolderPath, outputFileName)
-
-        console.log("PDF generated successfully!")
-        console.log(`Output path: ${outputPath}`)
+        const outputPath = path.join(args["--output-path"], args["--output-name"])
+        console.log(`PDF generated successfully at "${outputPath}"`)
+        showElapsedTime()
     })
     .catch(error => {
         console.log("Error while generating PDF:", error)
+        showElapsedTime()
     })
