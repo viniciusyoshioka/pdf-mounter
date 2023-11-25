@@ -1,5 +1,5 @@
 import { UnitConversor } from "./UnitConversor"
-import { args } from "./cli"
+import { ArrangementMode, CLI, ParsedArgs, args } from "./cli"
 
 
 export type Size = {
@@ -19,25 +19,36 @@ export type ResizedImage = {
 export type ImageResizerArgs = {
     pageSize: Size
     imagesSize: Size[]
+    cli?: CLI
 }
 
 
 export class ImageResizer {
 
 
-    private amountOfImages: number
-    private mode = args["--mode"]
-    private rows = args["--rows"]
-    private columns = args["--columns"]
     private page: Size
     private original: Size[]
     private resized: ResizedImage[] = []
+    private amountOfImages: number
+
+    private parsedArgs: ParsedArgs = args
+    private mode: ArrangementMode
+    private rows: number
+    private columns: number
 
 
-    constructor(args: ImageResizerArgs) {
-        this.amountOfImages = args.imagesSize.length
-        this.page = args.pageSize
-        this.original = args.imagesSize
+    constructor(options: ImageResizerArgs) {
+        this.page = options.pageSize
+        this.original = options.imagesSize
+        this.amountOfImages = options.imagesSize.length
+
+        const cliArgs = options.cli?.getArgs()
+        if (cliArgs) {
+            this.parsedArgs = cliArgs
+        }
+        this.mode = this.parsedArgs["--mode"]
+        this.rows = this.parsedArgs["--rows"]
+        this.columns = this.parsedArgs["--columns"]
     }
 
 
