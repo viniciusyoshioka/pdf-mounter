@@ -182,4 +182,82 @@ describe("cli", () => {
         expect(() => new CLI(["--amount-of-images-per-page", "0"])).toThrow(expectedErrorMessage)
         expect(() => new CLI(["--amount-of-images-per-page", "-1"])).toThrow(expectedErrorMessage)
     })
+
+
+    test("Test undefined --mode", () => {
+        const argv: string[] = []
+
+        const cli = new CLI(argv)
+        const args = cli.getArgs()
+
+        const mode = args["--mode"]
+        expect(mode).toEqual("linear")
+    })
+
+    test("Test --mode linear", () => {
+        const argv: string[] = ["--mode", "linear"]
+
+        const cli = new CLI(argv)
+        const args = cli.getArgs()
+
+        const mode = args["--mode"]
+        expect(mode).toEqual("linear")
+    })
+
+    test("Test --mode matrix", () => {
+        const argv: string[] = ["--mode", "matrix"]
+
+        const cli = new CLI(argv)
+        const args = cli.getArgs()
+
+        const mode = args["--mode"]
+        expect(mode).toEqual("matrix")
+    })
+
+    test("Test invalid --mode", () => {
+        const expectedErrorMessage = "Option --mode must be either 'linear' or 'matrix'"
+
+        expect(() => new CLI(["--mode", "invalid"])).toThrow(expectedErrorMessage)
+    })
+
+
+    test("Test undefined --rows and undefined --columns", () => {
+        const argv: string[] = ["--mode", "matrix"]
+
+        const cli = new CLI(argv)
+        const args = cli.getArgs()
+
+        const rows = args["--rows"]
+        expect(rows).toEqual(1)
+
+        const columns = args["--columns"]
+        expect(columns).toEqual(1)
+    })
+
+    test("Test --rows and --columns", () => {
+        const argv: string[] = ["--mode", "matrix", "--rows", "2", "--columns", "3"]
+
+        const cli = new CLI(argv)
+        const args = cli.getArgs()
+
+        const rows = args["--rows"]
+        expect(rows).toEqual(2)
+
+        const columns = args["--columns"]
+        expect(columns).toEqual(3)
+    })
+
+    test("Test negative --rows and --columns", () => {
+        const argv: string[] = ["--mode", "matrix", "--rows", "-2", "--columns", "3"]
+        const expectedErrorMessage = "Option --rows must be a number greater than 0"
+
+        expect(() => new CLI(argv)).toThrow(expectedErrorMessage)
+    })
+
+    test("Test --rows and negative --columns", () => {
+        const argv: string[] = ["--mode", "matrix", "--rows", "2", "--columns", "-3"]
+        const expectedErrorMessage = "Option --columns must be a number greater than 0"
+
+        expect(() => new CLI(argv)).toThrow(expectedErrorMessage)
+    })
 })
