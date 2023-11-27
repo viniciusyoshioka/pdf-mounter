@@ -104,9 +104,9 @@ export class PdfMounter {
     private addPortraitImages() {
         while (this.imageProvider.hasNextPortrait()) {
             if (this.mode === "linear") {
-                this.pdf.addPage({ ...this.pdf.options, layout: "portrait" })
-            } else {
                 this.pdf.addPage({ ...this.pdf.options, layout: "landscape" })
+            } else {
+                this.pdf.addPage({ ...this.pdf.options, layout: "portrait" })
             }
 
             const imagesToAddToPage: Image[] = []
