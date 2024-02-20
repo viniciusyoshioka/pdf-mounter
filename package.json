@@ -21,13 +21,12 @@
         "sharp": "^0.32.6"
     },
     "devDependencies": {
-        "@elementium/eslint-config": "file:../elementium/packages/eslint-config",
-        "@elementium/eslint-config-typescript": "file:../elementium/packages/eslint-config-typescript",
-        "@elementium/tsconfig": "file:../elementium/packages/tsconfig",
         "@jest/globals": "^29.7.0",
         "@types/pdfkit": "^0.13.1",
         "@typescript-eslint/eslint-plugin": "^6.9.0",
         "@typescript-eslint/parser": "^6.9.0",
+        "@vinicius1313/eslint-config": "^1.0.0",
+        "@vinicius1313/tsconfig": "^1.0.0",
         "eslint": "^8.52.0",
         "jest": "^29.7.0",
         "ts-jest": "^29.1.1",

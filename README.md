@@ -8,12 +8,6 @@ Requires [NodeJS](https://nodejs.org/) to execute the program.
 
 ## Installation
 
-First, download this repository and [elementium](https://github.com/viniciusyoshioka/elementium). Keep both in the same directory.
-
-This program have some dev dependencies that aren't in npm yet. So, they will be installed from a path.
-
-Now, run:
-
 ```sh
 npm install
 ```
