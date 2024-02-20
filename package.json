@@ -7,6 +7,25 @@
     "type": "commonjs",
     "main": "./src/index.ts",
     "module": "./dist/index.js",
+    "author": "Vinicius Yoshioka <71671043+viniciusyoshioka@users.noreply.github.com> (https://github.com/viniciusyoshioka)",
+    "repository": "https://github.com/viniciusyoshioka/pdf-mounter",
+    "bugs": {
+        "url": "https://github.com/viniciusyoshioka/pdf-mounter/issues"
+    },
+    "homepage": "https://github.com/viniciusyoshioka/pdf-mounter",
+    "keywords": [
+        "pdf",
+        "pdf file",
+        "pdf creation",
+        "pdf automation",
+        "images",
+        "image to pdf",
+        "add images to pdf",
+        "add images per page",
+        "automation",
+        "pdfkit",
+        "sharp"
+    ],
     "scripts": {
         "postinstall": "npm run build",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
