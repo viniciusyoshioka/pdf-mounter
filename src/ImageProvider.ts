@@ -54,7 +54,7 @@ export class ImageProvider {
       ? splitFilePath.pop()
       : undefined
 
-    return fileExtension
+    return (fileExtension !== undefined)
       ? ImageProvider.SUPPORTED_EXTENSIONS.includes(fileExtension)
       : false
   }
