@@ -6,7 +6,9 @@
         "module": "CommonJS",
     },
     "include": [
-        "src/**/*",
+        "src",
+        ".eslintrc.js",
+        "jest.config.js",
     ],
     "exclude": [
         "node_modules",
