@@ -8,7 +8,10 @@
     "main": "./src/index.ts",
     "module": "./dist/index.js",
     "author": "Vinicius Yoshioka <71671043+viniciusyoshioka@users.noreply.github.com> (https://github.com/viniciusyoshioka)",
-    "repository": "https://github.com/viniciusyoshioka/pdf-mounter",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/viniciusyoshioka/pdf-mounter.git"
+    },
     "bugs": {
         "url": "https://github.com/viniciusyoshioka/pdf-mounter/issues"
     },
