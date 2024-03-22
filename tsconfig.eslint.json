@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+  },
+  "include": [
+    "__tests__",
+    "src",
+    ".eslintrc.js",
+    "jest.config.js",
+  ],
+}
