@@ -1,5 +1,6 @@
 import { UnitConversor } from './UnitConversor.ts'
-import type { ArrangementMode, CLI, ParsedArgs } from './cli.ts'
+import type { CLI, ParsedArgs } from './cli.js'
+import { ArrangementMode } from './cli.js'
 import { args } from './cli.ts'
 
 
@@ -56,8 +57,12 @@ export class ImageResizer {
   redimensionLandscapeImages(): ResizedImage[] {
     const gapInPs = Math.round(UnitConversor.cmToPs(0.25))
 
-    const pageRows = this.mode === 'linear' ? this.amountOfImages : this.rows
-    const pageColumns = this.mode === 'linear' ? 1 : this.columns
+    const pageRows = this.mode === ArrangementMode.LINEAR
+      ? this.amountOfImages
+      : this.rows
+    const pageColumns = this.mode === ArrangementMode.LINEAR
+      ? 1
+      : this.columns
 
     const maxImageWidth = (this.page.width - ((pageColumns - 1) * gapInPs)) / pageColumns
     const maxImageHeight = (this.page.height - ((pageRows - 1) * gapInPs)) / pageRows
@@ -114,8 +119,12 @@ export class ImageResizer {
   redimensionPortraitImages(): ResizedImage[] {
     const gapInPs = Math.round(UnitConversor.cmToPs(0.25))
 
-    const pageRows = this.mode === 'linear' ? 1 : this.rows
-    const pageColumns = this.mode === 'linear' ? this.amountOfImages : this.columns
+    const pageRows = this.mode === ArrangementMode.LINEAR
+      ? 1
+      : this.rows
+    const pageColumns = this.mode === ArrangementMode.LINEAR
+      ? this.amountOfImages
+      : this.columns
 
     const maxImageWidth = (this.page.width - ((pageColumns - 1) * gapInPs)) / pageColumns
     const maxImageHeight = (this.page.height - ((pageRows - 1) * gapInPs)) / pageRows

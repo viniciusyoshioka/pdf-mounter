@@ -5,7 +5,8 @@ import type { Image, ImageProvider } from './ImageProvider.ts'
 import { ImageResizer } from './ImageResizer.ts'
 import type { PageLayout, PageType } from './PostScript.ts'
 import { PostScript } from './PostScript.ts'
-import type { ArrangementMode, CLI } from './cli.ts'
+import type { CLI } from './cli.js'
+import { ArrangementMode } from './cli.js'
 import { args } from './cli.ts'
 
 
@@ -64,7 +65,7 @@ export class PdfMounter {
 
   private addLandscapeImages() {
     while (this.imageProvider.hasNextLandscape()) {
-      if (this.mode === 'linear') {
+      if (this.mode === ArrangementMode.LINEAR) {
         this.pdf.addPage({ ...this.pdf.options, layout: 'portrait' })
       } else {
         this.pdf.addPage({ ...this.pdf.options, layout: 'landscape' })
@@ -105,7 +106,7 @@ export class PdfMounter {
 
   private addPortraitImages() {
     while (this.imageProvider.hasNextPortrait()) {
-      if (this.mode === 'linear') {
+      if (this.mode === ArrangementMode.LINEAR) {
         this.pdf.addPage({ ...this.pdf.options, layout: 'landscape' })
       } else {
         this.pdf.addPage({ ...this.pdf.options, layout: 'portrait' })

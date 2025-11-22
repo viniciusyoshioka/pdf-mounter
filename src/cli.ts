@@ -17,7 +17,10 @@ interface ConfigArgs extends Spec {
 }
 
 
-export type ArrangementMode = 'linear' | 'matrix'
+export enum ArrangementMode {
+  LINEAR = 'linear',
+  MATRIX = 'matrix',
+}
 
 export interface ParsedArgs {
   _: string[]
@@ -93,9 +96,9 @@ export class CLI {
     -o, --output-name <name>        Output file name of generated PDF. Default: generated_file.pdf
     -p, --output-path <path>        Output path of generated PDF file. Default: current directory
     -q, --amount-of-images-per-page How many images will be placed on each page. Default: 2
-    -m, --mode                      How the images will be arranged on the page. Possible values are 'linear' and 'matrix'. If set to matrix, --rows and --columns must be set too. Default: linear
-    -r, --rows                      How many rows will be present on the page. Only has effect if --mode is set to matrix. Default: 1 or --amount-of-images-per-page, depending on page's orientation
-    -c, --columns                   How many columns will be present on the page. Only has effect if --mode is set to matrix. Default: 1 or --amount-of-images-per-page, depending on page's orientation
+    -m, --mode                      How the images will be arranged on the page. Possible values are '${ArrangementMode.LINEAR}' and '${ArrangementMode.MATRIX}'. If set to ${ArrangementMode.MATRIX}, --rows and --columns must be set too. Default: ${ArrangementMode.LINEAR}
+    -r, --rows                      How many rows will be present on the page. Only has effect if --mode is set to ${ArrangementMode.MATRIX}. Default: 1 or --amount-of-images-per-page, depending on page's orientation
+    -c, --columns                   How many columns will be present on the page. Only has effect if --mode is set to ${ArrangementMode.MATRIX}. Default: 1 or --amount-of-images-per-page, depending on page's orientation
     `
 
     console.log(helpMessage)
@@ -166,11 +169,13 @@ export class CLI {
   private setDefaultValueToMode() {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!this.args['--mode']) {
-      this.args['--mode'] = 'linear'
+      this.args['--mode'] = ArrangementMode.LINEAR
     }
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (this.args['--mode'] !== 'linear' && this.args['--mode'] !== 'matrix') {
-      throw new Error("Option --mode must be either 'linear' or 'matrix'")
+
+    const allowedModes = [ArrangementMode.LINEAR, ArrangementMode.MATRIX]
+    const isModeAllowed = allowedModes.includes(this.args['--mode'])
+    if (!isModeAllowed) {
+      throw new Error(`Option --mode must be either '${ArrangementMode.LINEAR}' or '${ArrangementMode.MATRIX}'`)
     }
   }
 
