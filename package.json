@@ -9,7 +9,7 @@
     "module": "./dist/index.js",
     "author": "Vinicius Yoshioka <71671043+viniciusyoshioka@users.noreply.github.com> (https://github.com/viniciusyoshioka)",
     "repository": {
-    "type": "git",
+        "type": "git",
         "url": "git+https://github.com/viniciusyoshioka/pdf-mounter.git"
     },
     "bugs": {
