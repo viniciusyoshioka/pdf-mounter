@@ -1,6 +1,7 @@
-import fs from "node:fs"
-import path from "node:path"
-import sharp, { Metadata } from "sharp"
+import fs from 'node:fs'
+import path from 'node:path'
+import type { Metadata } from 'sharp'
+import sharp from 'sharp'
 
 
 export type Image = {
@@ -18,16 +19,13 @@ type ImageSize = {
 export class ImageProvider {
 
 
-  static SUPPORTED_EXTENSIONS = ["png", "jpg", "jpeg", "bmp", "webp"]
+  static SUPPORTED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'bmp', 'webp']
 
 
   private portraitIndex = 0
   private landscapeIndex = 0
-  private portraitFiles: Image[] = []
-  private landscapeFiles: Image[] = []
-
-
-  constructor() {}
+  private readonly portraitFiles: Image[] = []
+  private readonly landscapeFiles: Image[] = []
 
 
   async read(folderPath: string) {
@@ -49,7 +47,7 @@ export class ImageProvider {
   }
 
   private isImageFile(fileName: string): boolean {
-    const splitFilePath = fileName.toLowerCase().split(".")
+    const splitFilePath = fileName.toLowerCase().split('.')
     const fileExtension = splitFilePath.length > 1
       ? splitFilePath.pop()
       : undefined
@@ -79,7 +77,7 @@ export class ImageProvider {
 
   nextPortrait(): Image {
     if (this.portraitIndex >= this.portraitFiles.length) {
-      throw new Error("No more portrait images read to return")
+      throw new Error('No more portrait images read to return')
     }
     return this.portraitFiles[this.portraitIndex++]
   }
@@ -91,7 +89,7 @@ export class ImageProvider {
 
   nextLandscape(): Image {
     if (this.landscapeIndex >= this.landscapeFiles.length) {
-      throw new Error("No more landscape images read to return")
+      throw new Error('No more landscape images read to return')
     }
     return this.landscapeFiles[this.landscapeIndex++]
   }
@@ -108,7 +106,7 @@ export class ImageProvider {
     if (this.hasNextLandscape()) {
       return this.nextLandscape()
     }
-    throw new Error("No more images read to return")
+    throw new Error('No more images read to return')
   }
 
 

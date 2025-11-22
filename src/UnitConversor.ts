@@ -1,11 +1,11 @@
-import { PostScript } from "./PostScript"
+import { PostScript } from './PostScript.ts'
 
 
 export class UnitConversor {
 
 
   private static getA4MinSizeInPostScript(): number {
-    const a4Size = PostScript.getPageSize("A4")
+    const a4Size = PostScript.getPageSize('A4')
     return Math.min(a4Size.width, a4Size.height)
   }
 

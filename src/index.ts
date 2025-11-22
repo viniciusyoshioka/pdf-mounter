@@ -7,27 +7,27 @@ function showElapsedTime() {
 }
 
 
-import path from "node:path"
-import PDFDocument from "pdfkit"
+import path from 'node:path'
+import PDFDocument from 'pdfkit'
 
-import { ImageProvider } from "./ImageProvider"
-import { PdfMounter } from "./PdfMounter"
-import { args } from "./cli"
+import { ImageProvider } from './ImageProvider.ts'
+import { PdfMounter } from './PdfMounter.ts'
+import { args } from './cli.ts'
 
 
 const pdfMounter = new PdfMounter({
-  pdf: new PDFDocument({ size: "A4", autoFirstPage: false }),
+  pdf: new PDFDocument({ size: 'A4', autoFirstPage: false }),
   imageProvider: new ImageProvider(),
 })
 
 
 pdfMounter.start()
   .then(() => {
-    const outputPath = path.join(args["--output-path"], args["--output-name"])
+    const outputPath = path.join(args['--output-path'], args['--output-name'])
     console.log(`PDF generated successfully at "${outputPath}"`)
     showElapsedTime()
   })
-  .catch(error => {
-    console.log("Error while generating PDF:", error)
+  .catch((error: unknown) => {
+    console.log('Error while generating PDF:', error)
     showElapsedTime()
   })

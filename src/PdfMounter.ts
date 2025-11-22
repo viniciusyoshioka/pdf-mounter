@@ -1,10 +1,12 @@
-import fs from "node:fs"
-import path from "node:path"
+import fs from 'node:fs'
+import path from 'node:path'
 
-import { Image, ImageProvider } from "./ImageProvider"
-import { ImageResizer } from "./ImageResizer"
-import { PageLayout, PageType, PostScript } from "./PostScript"
-import { ArrangementMode, CLI, args } from "./cli"
+import type { Image, ImageProvider } from './ImageProvider.ts'
+import { ImageResizer } from './ImageResizer.ts'
+import type { PageLayout, PageType } from './PostScript.ts'
+import { PostScript } from './PostScript.ts'
+import type { ArrangementMode, CLI } from './cli.ts'
+import { args } from './cli.ts'
 
 
 export type PdfMounterArguments = {
@@ -17,15 +19,15 @@ export type PdfMounterArguments = {
 export class PdfMounter {
 
 
-  private pdf: PDFKit.PDFDocument
-  private imageProvider: ImageProvider
-  private parsedArgs = args
+  private readonly pdf: PDFKit.PDFDocument
+  private readonly imageProvider: ImageProvider
+  private readonly parsedArgs = args
 
-  private imagesPath: string
-  private outputPath: string
-  private outputStream: fs.WriteStream
-  private amountOfImagesPerPage: number
-  private mode: ArrangementMode
+  private readonly imagesPath: string
+  private readonly outputPath: string
+  private readonly outputStream: fs.WriteStream
+  private readonly amountOfImagesPerPage: number
+  private readonly mode: ArrangementMode
 
 
   constructor(options: PdfMounterArguments) {
@@ -37,13 +39,13 @@ export class PdfMounter {
       this.parsedArgs = cliArgs
     }
 
-    this.imagesPath = this.parsedArgs["--images"]
-    const outputDir = this.parsedArgs["--output-path"]
-    const outputFile = this.parsedArgs["--output-name"]
+    this.imagesPath = this.parsedArgs['--images']
+    const outputDir = this.parsedArgs['--output-path']
+    const outputFile = this.parsedArgs['--output-name']
     this.outputPath = path.join(outputDir, outputFile)
     this.outputStream = fs.createWriteStream(this.outputPath)
-    this.amountOfImagesPerPage = this.parsedArgs["--amount-of-images-per-page"]
-    this.mode = this.parsedArgs["--mode"]
+    this.amountOfImagesPerPage = this.parsedArgs['--amount-of-images-per-page']
+    this.mode = this.parsedArgs['--mode']
   }
 
 
@@ -62,10 +64,10 @@ export class PdfMounter {
 
   private addLandscapeImages() {
     while (this.imageProvider.hasNextLandscape()) {
-      if (this.mode === "linear") {
-        this.pdf.addPage({ ...this.pdf.options, layout: "portrait" })
+      if (this.mode === 'linear') {
+        this.pdf.addPage({ ...this.pdf.options, layout: 'portrait' })
       } else {
-        this.pdf.addPage({ ...this.pdf.options, layout: "landscape" })
+        this.pdf.addPage({ ...this.pdf.options, layout: 'landscape' })
       }
 
       const imagesToAddToPage: Image[] = []
@@ -103,10 +105,10 @@ export class PdfMounter {
 
   private addPortraitImages() {
     while (this.imageProvider.hasNextPortrait()) {
-      if (this.mode === "linear") {
-        this.pdf.addPage({ ...this.pdf.options, layout: "landscape" })
+      if (this.mode === 'linear') {
+        this.pdf.addPage({ ...this.pdf.options, layout: 'landscape' })
       } else {
-        this.pdf.addPage({ ...this.pdf.options, layout: "portrait" })
+        this.pdf.addPage({ ...this.pdf.options, layout: 'portrait' })
       }
 
       const imagesToAddToPage: Image[] = []

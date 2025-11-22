@@ -1,5 +1,6 @@
-import { UnitConversor } from "./UnitConversor"
-import { ArrangementMode, CLI, ParsedArgs, args } from "./cli"
+import { UnitConversor } from './UnitConversor.ts'
+import type { ArrangementMode, CLI, ParsedArgs } from './cli.ts'
+import { args } from './cli.ts'
 
 
 export type Size = {
@@ -26,15 +27,15 @@ export type ImageResizerArgs = {
 export class ImageResizer {
 
 
-  private page: Size
-  private original: Size[]
-  private resized: ResizedImage[] = []
-  private amountOfImages: number
+  private readonly page: Size
+  private readonly original: Size[]
+  private readonly resized: ResizedImage[] = []
+  private readonly amountOfImages: number
 
-  private parsedArgs: ParsedArgs = args
-  private mode: ArrangementMode
-  private rows: number
-  private columns: number
+  private readonly parsedArgs: ParsedArgs = args
+  private readonly mode: ArrangementMode
+  private readonly rows: number
+  private readonly columns: number
 
 
   constructor(options: ImageResizerArgs) {
@@ -46,17 +47,17 @@ export class ImageResizer {
     if (cliArgs) {
       this.parsedArgs = cliArgs
     }
-    this.mode = this.parsedArgs["--mode"]
-    this.rows = this.parsedArgs["--rows"]
-    this.columns = this.parsedArgs["--columns"]
+    this.mode = this.parsedArgs['--mode']
+    this.rows = this.parsedArgs['--rows']
+    this.columns = this.parsedArgs['--columns']
   }
 
 
   redimensionLandscapeImages(): ResizedImage[] {
     const gapInPs = Math.round(UnitConversor.cmToPs(0.25))
 
-    const pageRows = this.mode === "linear" ? this.amountOfImages : this.rows
-    const pageColumns = this.mode === "linear" ? 1 : this.columns
+    const pageRows = this.mode === 'linear' ? this.amountOfImages : this.rows
+    const pageColumns = this.mode === 'linear' ? 1 : this.columns
 
     const maxImageWidth = (this.page.width - ((pageColumns - 1) * gapInPs)) / pageColumns
     const maxImageHeight = (this.page.height - ((pageRows - 1) * gapInPs)) / pageRows
@@ -64,7 +65,9 @@ export class ImageResizer {
     let posX = 0
     let posY = 0
 
+    // eslint-disable-next-line no-useless-assignment
     let newImageWidth = 0
+    // eslint-disable-next-line no-useless-assignment
     let newImageHeight = 0
 
     const biggestImageWidth = 0
@@ -111,8 +114,8 @@ export class ImageResizer {
   redimensionPortraitImages(): ResizedImage[] {
     const gapInPs = Math.round(UnitConversor.cmToPs(0.25))
 
-    const pageRows = this.mode === "linear" ? 1 : this.rows
-    const pageColumns = this.mode === "linear" ? this.amountOfImages : this.columns
+    const pageRows = this.mode === 'linear' ? 1 : this.rows
+    const pageColumns = this.mode === 'linear' ? this.amountOfImages : this.columns
 
     const maxImageWidth = (this.page.width - ((pageColumns - 1) * gapInPs)) / pageColumns
     const maxImageHeight = (this.page.height - ((pageRows - 1) * gapInPs)) / pageRows
@@ -120,7 +123,9 @@ export class ImageResizer {
     let posX = 0
     let posY = 0
 
+    // eslint-disable-next-line no-useless-assignment
     let newImageHeight = 0
+    // eslint-disable-next-line no-useless-assignment
     let newImageWidth = 0
 
     const biggestImageWidth = 0
