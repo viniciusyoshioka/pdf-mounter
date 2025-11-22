@@ -4,7 +4,7 @@
   "description": "A tool that automates the creation of PDF files, reading all the images inside a folder and adding a certain amount of images per page.",
   "license": "MIT",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "main": "./src/index.ts",
   "module": "./dist/index.js",
   "author": "Vinicius Yoshioka <71671043+viniciusyoshioka@users.noreply.github.com> (https://github.com/viniciusyoshioka)",
