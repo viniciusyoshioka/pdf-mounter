@@ -1,14 +1,14 @@
 {
-  "extends": "@vinicius1313/tsconfig/tsconfig.json",
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
-  },
-  "include": [
-    "src/**/*",
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-  ],
+    "extends": "@vinicius1313/tsconfig/tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist"
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }
