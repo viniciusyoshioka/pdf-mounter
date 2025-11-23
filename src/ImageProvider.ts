@@ -62,9 +62,7 @@ export class ImageProvider {
   }
 
   private getImageSize(imageMetadata: Metadata): ImageSize {
-    const width = imageMetadata.width as number
-    const height = imageMetadata.height as number
-    const orientation = imageMetadata.orientation ?? 0
+    const { width, height, orientation = 0 } = imageMetadata
 
     if (orientation >= 5) return { width: height, height: width }
     return { width, height }

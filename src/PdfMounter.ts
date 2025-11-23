@@ -86,8 +86,8 @@ export class PdfMounter {
       const imageResizer = new ImageResizer({
         pageSize,
         imagesSize: imagesToAddToPage.map(image => ({
-          width: image.metadata.width as number,
-          height: image.metadata.height as number,
+          width: image.metadata.width,
+          height: image.metadata.height,
         })),
       })
       const resizedImages = imageResizer.redimensionLandscapeImages()
@@ -127,8 +127,8 @@ export class PdfMounter {
       const imageResizer = new ImageResizer({
         pageSize,
         imagesSize: imagesToAddToPage.map(image => ({
-          width: image.metadata.width as number,
-          height: image.metadata.height as number,
+          width: image.metadata.width,
+          height: image.metadata.height,
         })),
       })
       const resizedImages = imageResizer.redimensionPortraitImages()
