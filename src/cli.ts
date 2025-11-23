@@ -64,7 +64,7 @@ export class CLI {
 
   private readonly NAME = 'pdf-mounter'
   private readonly VERSION = '0.0.1'
-  private args: ParsedArgs
+  private readonly args: ParsedArgs
 
 
   constructor(argv?: string[]) {
@@ -124,42 +124,57 @@ export class CLI {
   }
 
   private setDefaultValueToImages() {
-    if (!this.args['--images']) {
-      this.args['--images'] = process.cwd()
+    const args = this.args as Partial<ParsedArgs>
+
+    if (args['--images'] === undefined) {
+      args['--images'] = process.cwd()
     }
-    if (path.isAbsolute(this.args['--images'])) {
+
+    if (path.isAbsolute(args['--images'])) {
       return
     }
 
     const cwd = process.cwd()
-    const imagesPath = this.args['--images']
-    this.args['--images'] = path.join(cwd, imagesPath)
+    const imagesPath = args['--images']
+    args['--images'] = path.join(cwd, imagesPath)
   }
 
   private setDefaultValueToOutputName() {
-    if (!this.args['--output-name']) {
-      this.args['--output-name'] = 'generated_file.pdf'
+    const args = this.args as Partial<ParsedArgs>
+
+    if (args['--output-name'] === undefined) {
+      args['--output-name'] = 'generated_file.pdf'
+    }
+
+    if (!args['--output-name'].length) {
+      throw new Error('Option --output-name cannot be empty')
     }
   }
 
   private setDefaultValueToOutputPath() {
-    if (!this.args['--output-path']) {
-      this.args['--output-path'] = process.cwd()
+    const args = this.args as Partial<ParsedArgs>
+
+    if (args['--output-path'] === undefined) {
+      args['--output-path'] = process.cwd()
     }
-    if (path.isAbsolute(this.args['--output-path'])) {
+
+    if (path.isAbsolute(args['--output-path'])) {
       return
     }
 
     const cwd = process.cwd()
-    const outputPath = this.args['--output-path']
-    this.args['--output-path'] = path.join(cwd, outputPath)
+    const outputPath = args['--output-path']
+    args['--output-path'] = path.join(cwd, outputPath)
   }
 
   private setDefaultValueToAmountOfImagesPerPage() {
-    if (!this.args['--amount-of-images-per-page']) {
-      this.args['--amount-of-images-per-page'] = 2
+    const args = this.args as Partial<ParsedArgs>
+
+    if (args['--amount-of-images-per-page'] === undefined) {
+      args['--amount-of-images-per-page'] = 2
     }
-    if (this.args['--amount-of-images-per-page'] < 1) {
+
+    if (args['--amount-of-images-per-page'] < 1) {
       throw new Error(
         'Option --amount-of-images-per-page must be a number greater than 0',
       )
@@ -167,32 +182,41 @@ export class CLI {
   }
 
   private setDefaultValueToMode() {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (!this.args['--mode']) {
-      this.args['--mode'] = ArrangementMode.LINEAR
+    const args = this.args as Partial<ParsedArgs>
+
+    if (args['--mode'] === undefined) {
+      args['--mode'] = ArrangementMode.LINEAR
     }
 
     const allowedModes = [ArrangementMode.LINEAR, ArrangementMode.MATRIX]
-    const isModeAllowed = allowedModes.includes(this.args['--mode'])
+    const allowedModesForErrorMessage = allowedModes.map(mode => `'${mode}'`).join(', ')
+
+    const isModeAllowed = allowedModes.includes(args['--mode'])
     if (!isModeAllowed) {
-      throw new Error(`Option --mode must be either '${ArrangementMode.LINEAR}' or '${ArrangementMode.MATRIX}'`)
+      throw new Error(`Option --mode must be one of ${allowedModesForErrorMessage}`)
     }
   }
 
   private setDefaultValueToRows() {
-    if (!this.args['--rows']) {
-      this.args['--rows'] = 1
+    const args = this.args as Partial<ParsedArgs>
+
+    if (args['--rows'] === undefined) {
+      args['--rows'] = 1
     }
-    if (this.args['--rows'] < 1) {
+
+    if (args['--rows'] < 1) {
       throw new Error('Option --rows must be a number greater than 0')
     }
   }
 
   private setDefaultValueToColumns() {
-    if (!this.args['--columns']) {
-      this.args['--columns'] = 1
+    const args = this.args as Partial<ParsedArgs>
+
+    if (args['--columns'] === undefined) {
+      args['--columns'] = 1
     }
-    if (this.args['--columns'] < 1) {
+
+    if (args['--columns'] < 1) {
       throw new Error('Option --columns must be a number greater than 0')
     }
   }

@@ -224,7 +224,7 @@ describe('cli', () => {
   })
 
   test('Test invalid --mode', () => {
-    const expectedErrorMessage = "Option --mode must be either 'linear' or 'matrix'"
+    const expectedErrorMessage = "Option --mode must be one of 'linear', 'matrix'"
 
     expect(() => new CLI(['--mode', 'invalid'])).toThrow(expectedErrorMessage)
   })
