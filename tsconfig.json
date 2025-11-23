@@ -1,11 +1,14 @@
 {
     "extends": "@vinicius1313/tsconfig/tsconfig.json",
     "compilerOptions": {
-        "rootDir": "src",
+        "rootDir": ".",
         "outDir": "dist"
     },
     "include": [
-        "src/**/*"
+        "__tests__/**/*",
+        "src/**/*",
+        "./*.js",
+        "./*.ts"
     ],
     "exclude": [
         "node_modules",
