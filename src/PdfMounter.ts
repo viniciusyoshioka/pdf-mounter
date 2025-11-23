@@ -25,7 +25,6 @@ export class PdfMounter {
 
   private readonly imagesPath: string
   private readonly outputPath: string
-  private readonly outputStream: fs.WriteStream
   private readonly amountOfImagesPerPage: number
   private readonly mode: ArrangementMode
 
@@ -43,7 +42,6 @@ export class PdfMounter {
     const outputDir = this.parsedArgs['--output-path']
     const outputFile = this.parsedArgs['--output-name']
     this.outputPath = path.join(outputDir, outputFile)
-    this.outputStream = fs.createWriteStream(this.outputPath)
     this.amountOfImagesPerPage = this.parsedArgs['--amount-of-images-per-page']
     this.mode = this.parsedArgs['--mode']
   }
@@ -53,12 +51,16 @@ export class PdfMounter {
     if (this.imageProvider.isEmpty()) {
       await this.imageProvider.read(this.imagesPath)
     }
+    if (this.imageProvider.isEmpty()) {
+      return
+    }
 
     this.addLandscapeImages()
     this.addPortraitImages()
 
-    this.pdf.pipe(this.outputStream)
-    this.pdf.end()
+    const outputStream = fs.createWriteStream(this.outputPath)
+    this.pdf.pipe(outputStream)
+    outputStream.end()
   }
 
 
