@@ -36,6 +36,9 @@ alias pdf-mounter='node <PATH_TO_THIS_REPOSITORY>/dist/index.js'
  `--output-name`, `-o` | No | `generated_file.pdf` | The name of resulting PDF file.
  `--output-path`, `-p` | No | Current Directory | The path (to a folder) where the resulting PDF file will be written.
  `--amount-of-images-per-page`, `-c` | No | 2 | How many images will be added to each page.
+ `--mode`, `-m` | No | `linear` | How the images will be arranged on the page. When passing `matrix`, `--rows` and `--columns` are required too.
+ `--rows`, `-r` | No | `1` or `--amount-of-images-per-page`, depending on page orientation | How many rows will be present on the page. Only has effect if `--mode` is set to `matrix`.
+ `--columns`, `-c` | No | `1` or `--amount-of-images-per-page`, depending on page orientation | How many columns will be present on the page. Only has effect if `--mode` is set to `matrix`.
 
 ## Examples
 
