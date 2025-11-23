@@ -33,7 +33,7 @@
         "postinstall": "npm run build",
         "lint": "eslint './src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}'",
         "typecheck": "tsc --noEmit",
-        "test": "jest",
+        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "build": "tsc -p ./tsconfig.build.json",
         "start": "node ./dist/index.js"
     },
