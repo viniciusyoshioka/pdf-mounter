@@ -5,9 +5,8 @@ import type { Image, ImageProvider } from './ImageProvider.ts'
 import { ImageResizer } from './ImageResizer.ts'
 import type { PageLayout, PageType } from './PostScript.ts'
 import { PostScript } from './PostScript.ts'
-import type { CLI } from './cli.js'
-import { ArrangementMode } from './cli.js'
-import { args } from './cli.ts'
+import type { CLI } from './cli.ts'
+import { args, ArrangementMode } from './cli.ts'
 
 
 export type PdfMounterArguments = {

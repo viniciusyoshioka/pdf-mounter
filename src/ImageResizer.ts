@@ -1,7 +1,6 @@
 import { UnitConversor } from './UnitConversor.ts'
-import type { CLI, ParsedArgs } from './cli.js'
-import { ArrangementMode } from './cli.js'
-import { args } from './cli.ts'
+import type { CLI, ParsedArgs } from './cli.ts'
+import { args, ArrangementMode } from './cli.ts'
 
 
 export type Size = {
