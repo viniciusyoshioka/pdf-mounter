@@ -221,7 +221,3 @@ export class CLI {
     }
   }
 }
-
-
-const cli = new CLI()
-export const args = cli.getArgs()
