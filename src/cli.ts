@@ -16,26 +16,6 @@ interface ConfigArgs extends Spec {
   '--columns': Handler
 }
 
-
-export enum ArrangementMode {
-  LINEAR = 'linear',
-  MATRIX = 'matrix',
-}
-
-export interface ParsedArgs {
-  _: string[]
-  '--help': boolean
-  '--version': boolean
-  '--images': string
-  '--output-name': string
-  '--output-path': string
-  '--amount-of-images-per-page': number
-  '--mode': ArrangementMode
-  '--rows': number
-  '--columns': number
-}
-
-
 const argConfig: ConfigArgs = {
   '--help': Boolean,
   '--version': Boolean,
@@ -56,6 +36,25 @@ const argConfig: ConfigArgs = {
   '-m': '--mode',
   '-r': '--rows',
   '-c': '--columns',
+}
+
+
+export enum ArrangementMode {
+  LINEAR = 'linear',
+  MATRIX = 'matrix',
+}
+
+export interface ParsedArgs {
+  _: string[]
+  '--help': boolean
+  '--version': boolean
+  '--images': string
+  '--output-name': string
+  '--output-path': string
+  '--amount-of-images-per-page': number
+  '--mode': ArrangementMode
+  '--rows': number
+  '--columns': number
 }
 
 
