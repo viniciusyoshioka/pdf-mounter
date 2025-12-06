@@ -1,6 +1,5 @@
 import { UnitConversor } from './UnitConversor.ts'
-import type { CLI, ParsedArgs } from './cli.ts'
-import { args, ArrangementMode } from './cli.ts'
+import { ArrangementMode } from './cli.ts'
 
 
 export type Size = {
@@ -20,7 +19,9 @@ export type ResizedImage = {
 export type ImageResizerArgs = {
   pageSize: Size
   imagesSize: Size[]
-  cli?: CLI
+  rows: number
+  columns: number
+  mode: ArrangementMode
 }
 
 
@@ -31,25 +32,18 @@ export class ImageResizer {
   private readonly original: Size[]
   private readonly resized: ResizedImage[] = []
   private readonly amountOfImages: number
-
-  private readonly parsedArgs: ParsedArgs = args
-  private readonly mode: ArrangementMode
   private readonly rows: number
   private readonly columns: number
+  private readonly mode: ArrangementMode
 
 
   constructor(options: ImageResizerArgs) {
     this.page = options.pageSize
     this.original = options.imagesSize
     this.amountOfImages = options.imagesSize.length
-
-    const cliArgs = options.cli?.getArgs()
-    if (cliArgs) {
-      this.parsedArgs = cliArgs
-    }
-    this.mode = this.parsedArgs['--mode']
-    this.rows = this.parsedArgs['--rows']
-    this.columns = this.parsedArgs['--columns']
+    this.rows = options.rows
+    this.columns = options.columns
+    this.mode = options.mode
   }
 
 
