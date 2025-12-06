@@ -1,49 +1,48 @@
 import fs from 'node:fs'
-import path from 'node:path'
+import PDFDocument from 'pdfkit'
 
 import type { Image, ImageProvider } from './ImageProvider.ts'
 import { ImageResizer } from './ImageResizer.ts'
 import type { PageLayout, PageType } from './PostScript.ts'
 import { PostScript } from './PostScript.ts'
-import type { CLI } from './cli.ts'
-import { args, ArrangementMode } from './cli.ts'
+import { ArrangementMode } from './cli.ts'
 
 
 export type PdfMounterArguments = {
-  pdf: PDFKit.PDFDocument
   imageProvider: ImageProvider
-  cli?: CLI
+
+  imagesPath: string
+  outputPath: string
+  amountOfImagesPerPage: number
+  rows: number
+  columns: number
+  mode: ArrangementMode
 }
 
 
 export class PdfMounter {
 
 
-  private readonly pdf: PDFKit.PDFDocument
+  private readonly pdf = new PDFDocument({ size: 'A4', autoFirstPage: false })
   private readonly imageProvider: ImageProvider
-  private readonly parsedArgs = args
 
   private readonly imagesPath: string
   private readonly outputPath: string
   private readonly amountOfImagesPerPage: number
+  private readonly rows: number
+  private readonly columns: number
   private readonly mode: ArrangementMode
 
 
   constructor(options: PdfMounterArguments) {
-    this.pdf = options.pdf
     this.imageProvider = options.imageProvider
 
-    const cliArgs = options.cli?.getArgs()
-    if (cliArgs) {
-      this.parsedArgs = cliArgs
-    }
-
-    this.imagesPath = this.parsedArgs['--images']
-    const outputDir = this.parsedArgs['--output-path']
-    const outputFile = this.parsedArgs['--output-name']
-    this.outputPath = path.join(outputDir, outputFile)
-    this.amountOfImagesPerPage = this.parsedArgs['--amount-of-images-per-page']
-    this.mode = this.parsedArgs['--mode']
+    this.imagesPath = options.imagesPath
+    this.outputPath = options.outputPath
+    this.amountOfImagesPerPage = options.amountOfImagesPerPage
+    this.rows = options.rows
+    this.columns = options.columns
+    this.mode = options.mode
   }
 
 
@@ -60,6 +59,13 @@ export class PdfMounter {
 
     const outputStream = fs.createWriteStream(this.outputPath)
     this.pdf.pipe(outputStream)
+
+    this.pdf.end()
+    await new Promise<void>((resolve, reject) => {
+      this.pdf.on('finish', () => resolve())
+      this.pdf.on('error', (error: unknown) => reject(error as Error))
+    })
+
     outputStream.end()
   }
 
@@ -90,6 +96,9 @@ export class PdfMounter {
           width: image.metadata.width,
           height: image.metadata.height,
         })),
+        rows: this.rows,
+        columns: this.columns,
+        mode: this.mode,
       })
       const resizedImages = imageResizer.redimensionLandscapeImages()
 
@@ -131,6 +140,9 @@ export class PdfMounter {
           width: image.metadata.width,
           height: image.metadata.height,
         })),
+        rows: this.rows,
+        columns: this.columns,
+        mode: this.mode,
       })
       const resizedImages = imageResizer.redimensionPortraitImages()
 
