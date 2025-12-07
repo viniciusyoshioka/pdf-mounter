@@ -6,7 +6,7 @@ import type { Size } from '../src/ImageResizer.ts'
 import { ImageResizer } from '../src/ImageResizer.ts'
 import type { PageLayout, PageType } from '../src/PostScript.ts'
 import { PostScript } from '../src/PostScript.ts'
-import { CLI } from '../src/cli.ts'
+import { ArrangementMode, CLI } from '../src/cli.ts'
 
 
 describe('ImageResizer', () => {
@@ -15,6 +15,9 @@ describe('ImageResizer', () => {
   let pageSize: Size
   // eslint-disable-next-line @typescript-eslint/init-declarations
   let imageResizer: ImageResizer
+  const columns = 1
+  const rows = 1
+  const mode = ArrangementMode.LINEAR
   const imageResizers: ImageResizer[] = []
 
   test('Instantiating image resizer', async () => {
@@ -24,15 +27,14 @@ describe('ImageResizer', () => {
 
     while (imageProvider.hasNext()) {
       const image = imageProvider.next()
-      const width = image.metadata.width ?? 0
-      const height = image.metadata.height ?? 0
+      const { width, height } = image.metadata
       imagesSize.push({ width, height })
     }
 
     const pageType = pdf.page.size as PageType
     const pageLayout = pdf.page.layout as PageLayout
     pageSize = PostScript.getPageSizeBasedOnLayout(pageType, pageLayout)
-    imageResizer = new ImageResizer({ imagesSize, pageSize })
+    imageResizer = new ImageResizer({ imagesSize, pageSize, columns, rows, mode })
   })
 
   test('Redimension landscape images', () => {
@@ -79,12 +81,16 @@ describe('ImageResizer', () => {
     ]
 
     newImagesSize.forEach(imagesSizeItem => {
-      const cli = new CLI(argv)
+      const args = new CLI(argv).getArgs()
+
       const newImageResizer = new ImageResizer({
         imagesSize: imagesSizeItem,
         pageSize,
-        cli,
+        columns: args['--columns'],
+        rows: args['--rows'],
+        mode: args['--mode'],
       })
+
       imageResizers.push(newImageResizer)
     })
 
