@@ -62,7 +62,7 @@ export class PdfMounter {
 
     this.pdf.end()
     await new Promise<void>((resolve, reject) => {
-      this.pdf.on('finish', () => resolve())
+      this.pdf.on('end', () => resolve())
       this.pdf.on('error', (error: unknown) => reject(error as Error))
     })
 

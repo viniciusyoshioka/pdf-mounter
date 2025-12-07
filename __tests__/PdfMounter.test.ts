@@ -1,15 +1,14 @@
 import { describe, test } from '@jest/globals'
-import PDFDocument from 'pdfkit'
+import path from 'node:path'
 
 import { ImageProvider } from '../src/ImageProvider.ts'
 import { PdfMounter } from '../src/PdfMounter.ts'
+import { ArrangementMode, CLI } from '../src/cli.ts'
 
 
 describe('PdfMounter', () => {
 
 
-  // eslint-disable-next-line @typescript-eslint/init-declarations
-  let pdf: PDFKit.PDFDocument
   // eslint-disable-next-line @typescript-eslint/init-declarations
   let imageProvider: ImageProvider
   // eslint-disable-next-line @typescript-eslint/init-declarations
@@ -18,22 +17,35 @@ describe('PdfMounter', () => {
   const imagesPath = './assets/images'
   const outputPath = './assets/pdf/PdfMounter_test_output.pdf'
   const amountOfImagesPerPage = 4
+  const rows = 1
+  const columns = 1
+  const mode = ArrangementMode.LINEAR
 
 
   test('Prepare to instantiate PdfMounter', () => {
-    pdf = new PDFDocument({ size: 'A4', autoFirstPage: false })
     imageProvider = new ImageProvider()
   })
 
   test('Instantiate PdfMounter', () => {
-    const previousArgv = [...process.argv]
-    process.argv.push('-i', imagesPath)
-    process.argv.push('-o', outputPath)
-    process.argv.push('-q', amountOfImagesPerPage.toString())
+    const argv = [...process.argv]
+    argv.push('-i', imagesPath)
+    argv.push('-o', outputPath)
+    argv.push('-q', amountOfImagesPerPage.toString())
+    argv.push('-r', rows.toString())
+    argv.push('-c', columns.toString())
+    argv.push('-m', mode)
 
-    pdfMounter = new PdfMounter({ pdf, imageProvider })
+    const args = new CLI(argv).getArgs()
 
-    process.argv = previousArgv
+    pdfMounter = new PdfMounter({
+      imageProvider,
+      imagesPath: args['--images'],
+      outputPath: path.join(args['--output-path'], args['--output-name']),
+      amountOfImagesPerPage: args['--amount-of-images-per-page'],
+      rows: args['--rows'],
+      columns: args['--columns'],
+      mode: args['--mode'],
+    })
   })
 
   test('Mount PDF file', async () => {
