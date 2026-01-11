@@ -46,7 +46,7 @@
         "@jest/globals": "^30.2.0",
         "@stylistic/eslint-plugin": "^5.6.1",
         "@types/pdfkit": "^0.17.3",
-        "@vinicius1313/eslint-config": "^2.1.0",
+        "@vinicius1313/eslint-config": "^2.2.0",
         "@vinicius1313/tsconfig": "^2.0.0",
         "eslint": "^9.39.1",
         "jest": "^30.2.0",
