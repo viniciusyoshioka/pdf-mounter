@@ -68,7 +68,6 @@ export class ImageResizer {
     // eslint-disable-next-line no-useless-assignment
     let newImageHeight = 0
 
-    const biggestImageWidth = 0
     let biggestImageHeight = 0
 
     let processedImageIndex = 0
@@ -130,7 +129,6 @@ export class ImageResizer {
     // eslint-disable-next-line no-useless-assignment
     let newImageWidth = 0
 
-    const biggestImageWidth = 0
     let biggestImageHeight = 0
 
     let processedImageIndex = 0
