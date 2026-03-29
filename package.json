@@ -45,6 +45,7 @@
         "@eslint/js": "^10.0.1",
         "@jest/globals": "^30.3.0",
         "@stylistic/eslint-plugin": "^5.10.0",
+        "@types/node": "^25.5.0",
         "@types/pdfkit": "^0.17.5",
         "@vinicius1313/eslint-config": "^2.3.0",
         "@vinicius1313/tsconfig": "^3.0.1",
