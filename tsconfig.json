@@ -2,7 +2,10 @@
     "extends": "@vinicius1313/tsconfig/tsconfig.json",
     "compilerOptions": {
         "rootDir": ".",
-        "outDir": "dist"
+        "outDir": "dist",
+        "types": [
+            "jest"
+        ]
     },
     "include": [
         "__tests__/**/*",
