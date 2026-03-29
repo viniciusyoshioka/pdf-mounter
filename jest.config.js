@@ -2,7 +2,7 @@
 export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  collectCoverage: false,
+  collectCoverage: true,
   roots: ['<rootDir>'],
   testMatch: [
     '<rootDir>/__tests__/**/*.test.ts',
