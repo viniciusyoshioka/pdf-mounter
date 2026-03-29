@@ -15,6 +15,12 @@ npm install
 or
 
 ```sh
+pnpm install
+```
+
+or
+
+```sh
 yarn install
 ```
 
@@ -53,13 +59,19 @@ If you haven't add the alias, you still can select any folder, but the command i
 With the terminal open in the root of this project, you can run either:
 
 ```sh
-yarn start -i /path/to/specific/folder
+node ./dist/index.js -i /path/to/specific/folder
 ```
 
 or
 
 ```sh
-node ./dist/index.js -i /path/to/specific/folder
+pnpm start -i /path/to/specific/folder
+```
+
+or
+
+```sh
+yarn start -i /path/to/specific/folder
 ```
 
 ## Supported image extensions
