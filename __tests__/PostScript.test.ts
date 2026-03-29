@@ -1,5 +1,3 @@
-import { describe, expect, test } from '@jest/globals'
-
 import type { PageLayout, PageType } from '../src/PostScript.ts'
 import { PostScript } from '../src/PostScript.ts'
 

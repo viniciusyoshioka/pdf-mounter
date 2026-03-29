@@ -1,5 +1,3 @@
-import { describe, expect, test } from '@jest/globals'
-
 import { PostScript } from '../src/PostScript.ts'
 import { UnitConversor } from '../src/UnitConversor.ts'
 

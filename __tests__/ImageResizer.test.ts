@@ -1,4 +1,3 @@
-import { describe, expect, test } from '@jest/globals'
 import PDFDocument from 'pdfkit'
 
 import { ImageProvider } from '../src/ImageProvider.ts'

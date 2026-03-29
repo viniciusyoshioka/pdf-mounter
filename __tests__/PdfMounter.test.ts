@@ -1,4 +1,3 @@
-import { describe, test } from '@jest/globals'
 import path from 'node:path'
 
 import { ImageProvider } from '../src/ImageProvider.ts'

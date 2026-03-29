@@ -1,4 +1,3 @@
-import { describe, expect, jest, test } from '@jest/globals'
 import path from 'node:path'
 
 import type { ParsedArgs } from '../src/cli.ts'
