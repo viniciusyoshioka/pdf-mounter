@@ -32,7 +32,8 @@
     "scripts": {
         "lint": "eslint './src/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}'",
         "typecheck": "tsc --noEmit",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+        "test": "jest",
+        "test:cov": "jest --coverage",
         "build": "tsc -p ./tsconfig.json",
         "start": "node ./dist/index.js"
     },
