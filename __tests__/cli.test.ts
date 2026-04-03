@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
-import { jest } from '@jest/globals'
 import path from 'node:path'
 
 import type { ParsedArgs } from '../src/cli.ts'
@@ -11,8 +7,8 @@ import { CLI } from '../src/cli.ts'
 describe('cli', () => {
 
   test('Show help', () => {
-    const mockExit = jest.spyOn(process, 'exit')
-      .mockImplementation((exitCode: number) => {
+    const mockExit = import.meta.jest.spyOn(process, 'exit')
+      .mockImplementation(exitCode => {
         throw new Error(`process.exit(${exitCode})`)
       })
 
@@ -24,8 +20,8 @@ describe('cli', () => {
   })
 
   test('Show version', () => {
-    const mockExit = jest.spyOn(process, 'exit')
-      .mockImplementation((exitCode: number) => {
+    const mockExit = import.meta.jest.spyOn(process, 'exit')
+      .mockImplementation(exitCode => {
         throw new Error(`process.exit(${exitCode})`)
       })
 
